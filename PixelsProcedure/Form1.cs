@@ -297,5 +297,11 @@ namespace PixelsProcedure
             pictureBox1.Image = gray;
             Graph(pixels);
         }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.ShowDialog();
+        }
     }
 }
