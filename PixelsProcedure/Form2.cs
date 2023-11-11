@@ -87,9 +87,10 @@ namespace PixelsProcedure
         private void button1_Click(object sender, EventArgs e)
         {
             int p = (int)numericUpDown1.Value;
+            loadListOfIntervals(p);
             //TextBox newTextBox = new TextBox();
             //TextBox lastOldTextBox = TextBoxes.LastOrDefault();
-            loadListOfIntervals(p);
+
             //if (lastOldTextBox == null)
             //{
             //    newTextBox.Location = new Point(30, 50);
@@ -114,9 +115,21 @@ namespace PixelsProcedure
         private void button3_Click(object sender, EventArgs e)
         {
             String[] pixelsColors = new String[256];
-            for (int i = 0; i < 256; i++)
+
+            int i1 = 0;
+            for (int i = 0; i < lbList.Count; i++)
             {
-                Console.WriteLine(i + ": " + nudList[i].Value + " -- " + lbList[i].SelectedItem.ToString());
+                int i2 = (int)nudList[i].Value;
+                for (; i1 <= i2; i1++)
+                {
+                    pixelsColors[i1] = lbList[i].SelectedItem.ToString();
+                    //Console.WriteLine(i + ": " + nudList[i].Value + " -- " + lbList[i].SelectedItem.ToString());
+                }
+            }
+
+            for (int i = 0; i < pixelsColors.Length; i++)
+            {
+                Console.WriteLine(i + ": " + pixelsColors[i]);
             }
 
             for (int i = 0; i < lbList.Count; i++)
