@@ -65,7 +65,7 @@ namespace PixelsProcedure
                 lb.SelectedItem = colors[new Random().Next(0, colors.Length)];
                 //colors[new Random().Next(0, colors.Length)]
 
-                if (k > 248 && k < 255) { nud.Value = 255; }
+                if (i == p - 1) { nud.Value = 255; }
                 else { nud.Value = k; }
                 //btn.Click += Btn_Click;
                 k += 256 / p;
