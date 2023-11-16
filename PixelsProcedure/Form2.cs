@@ -107,6 +107,7 @@ namespace PixelsProcedure
 
         private void button2_Click(object sender, EventArgs e)
         {
+            pictureBox1.Image = gray;
             nudList.Clear();
             lbList.Clear();
             flowLayoutPanel1.Controls.Clear();
@@ -114,29 +115,54 @@ namespace PixelsProcedure
 
         private void button3_Click(object sender, EventArgs e)
         {
-            String[] pixelsColors = new String[256];
-
-            int i1 = 0;
-            for (int i = 0; i < lbList.Count; i++)
+            if (lbList.Count > 0 && nudList.Count > 0)
             {
-                int i2 = (int)nudList[i].Value;
-                for (; i1 <= i2; i1++)
+                String[] pixelsColors = new String[256];
+
+                int i1 = 0;
+                for (int i = 0; i < lbList.Count; i++)
                 {
-                    pixelsColors[i1] = lbList[i].SelectedItem.ToString();
-                    //Console.WriteLine(i + ": " + nudList[i].Value + " -- " + lbList[i].SelectedItem.ToString());
+                    int i2 = (int)nudList[i].Value;
+                    for (; i1 <= i2; i1++)
+                    {
+                        pixelsColors[i1] = lbList[i].SelectedItem.ToString();
+                        //Console.WriteLine(i + ": " + nudList[i].Value + " -- " + lbList[i].SelectedItem.ToString());
+                    }
                 }
-            }
 
-            for (int i = 0; i < pixelsColors.Length; i++)
-            {
-                Console.WriteLine(i + ": " + pixelsColors[i]);
-            }
+                colorful = new Bitmap(bmp.Width, bmp.Height);
 
-            for (int i = 0; i < lbList.Count; i++)
-            {
-                Console.WriteLine(i + ": " + nudList[i].Value + " -- " + lbList[i].SelectedItem.ToString());
+                for (int x = 0; x < colorful.Width; x++)
+                {
+                    for (int y = 0; y < colorful.Height; y++)
+                    {
+                        Color c = bmp.GetPixel(x, y);
+                        byte g = (byte)(0.3f * c.R + 0.59f * c.G + 0.11f * c.B);
+
+                        for (int k = 0; k < pixelsColors.Length; k++)
+                        {
+                            if (g == (byte)k)
+                            {
+                                //g = (byte)pixelsColors[k];
+                                c = Color.FromName(pixelsColors[k]);
+                                break;
+                            }
+                        }
+                        colorful.SetPixel(x, y, c);
+                    }
+                }
+                pictureBox1.Image = colorful;
+                //for (int i = 0; i < pixelsColors.Length; i++)
+                //{
+                //    Console.WriteLine(i + ": " + pixelsColors[i]);
+                //}
+
+                //for (int i = 0; i < lbList.Count; i++)
+                //{
+                //    Console.WriteLine(i + ": " + nudList[i].Value + " -- " + lbList[i].SelectedItem.ToString());
+                //}
+                //Console.WriteLine();
             }
-            Console.WriteLine();
         }
     }
 }

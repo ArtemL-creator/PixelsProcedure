@@ -287,6 +287,7 @@ namespace PixelsProcedure
                         if (g == (byte)k)
                         {
                             g = (byte)pixels2[k];
+                            break;
                         }
                     }
 
