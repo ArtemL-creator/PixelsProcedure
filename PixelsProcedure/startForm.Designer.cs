@@ -1,6 +1,6 @@
 ﻿namespace PixelsProcedure
 {
-    partial class startForm
+    partial class StartForm
     {
         /// <summary>
         /// Required designer variable.

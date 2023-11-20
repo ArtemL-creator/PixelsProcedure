@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PixelsProcedure
 {
-    public partial class startForm : Form
+    public partial class StartForm : Form
     {
-        public startForm()
+        public StartForm()
         {
             InitializeComponent();
         }

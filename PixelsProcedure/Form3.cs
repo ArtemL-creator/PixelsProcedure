@@ -13,6 +13,8 @@ namespace PixelsProcedure
     public partial class Form3 : Form
     {
         Bitmap bmp = new Bitmap(@"D:\Images\4f6ad752090bf5ae323bab7bc37e25e9(2).bmp");
+        Bitmap enlargetBmp;
+        Rectangle rectangle = new Rectangle();
 
         private bool isMouseDown = false;
         private Point startPoint;
@@ -53,36 +55,44 @@ namespace PixelsProcedure
             int height = Math.Abs(startPoint.Y - endPoint.Y);
 
             Rectangle selectedRectangle = new Rectangle(x, y, width, height);
+            rectangle = selectedRectangle;
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             if (isMouseDown)
             {
-                Pen pen = new Pen(Color.Red, 2);
+                //Pen pen = new Pen(Color.Red, 2);
                 int x = Math.Min(startPoint.X, endPoint.X);
                 int y = Math.Min(startPoint.Y, endPoint.Y);
                 int width = Math.Abs(startPoint.X - endPoint.X);
                 int height = Math.Abs(startPoint.Y - endPoint.Y);
 
-                e.Graphics.DrawRectangle(pen, x, y, width, height);
-                pen.Dispose();
+                //e.Graphics.DrawRectangle(pen, x, y, width, height);
+                //pen.Dispose();
+
+                // Рисуем полупрозрачный прямоугольник
+                using (Brush brush = new SolidBrush(Color.FromArgb(128, Color.Red)))
+                {
+                    e.Graphics.FillRectangle(brush, x, y, width, height);
+                }
+
+                // Рисуем контур прямоугольника
+                using (Pen pen = new Pen(Color.Red, 1))
+                {
+                    e.Graphics.DrawRectangle(pen, x, y, width, height);
+                }
             }
         }
 
-        //private void pictureBox1_Click(object sender, PaintEventArgs e)
-        //{
-        //    MessageBox.Show("Работает", "Нет ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //}
-
-
         private void button1_Click(object sender, EventArgs e)
         {
+            numericUpDown1.Value = 0;
             OpenFileDialog ofd = new OpenFileDialog();
 
             ofd.Filter = "Image Files(*.BMP)|*.BMP";
 
-            if(ofd.ShowDialog() == DialogResult.OK)
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
@@ -94,13 +104,39 @@ namespace PixelsProcedure
                     MessageBox.Show("Картинка не открывается", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     throw;
                 }
-            }    
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            numericUpDown1.Value = 0;
             pictureBox1.Image = bmp;
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if ((int)numericUpDown1.Value > 0 && rectangle.Width > 0 && rectangle.Height > 0) 
+            {
+                //EnlargedImage enlargedImage = new EnlargedImage();
+                //enlargedImage.ShowDialog();
+                //Позже
+                int L = (int)numericUpDown1.Value;
+
+                enlargetBmp = new Bitmap(rectangle.Width, rectangle.Height);
+
+                for (int x = 0; x < rectangle.Width; x++)
+                {
+                    for (int y = 0; y < rectangle.Height; y++)
+                    {
+                        Color c = bmp.GetPixel(rectangle.X + x, rectangle.Y + y);
+
+                        enlargetBmp.SetPixel(x, y, c);
+                    }
+                }
+
+                EnlargedImage enlargedImage = new EnlargedImage(enlargetBmp);
+                enlargedImage.ShowDialog();
+            }
+        }
     }
 }
