@@ -375,7 +375,7 @@ namespace PixelsProcedure
 
         private void button10_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2();
+            Form2 form2 = new Form2(bmp);
             form2.ShowDialog();
         }
 

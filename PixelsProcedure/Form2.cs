@@ -25,14 +25,14 @@ namespace PixelsProcedure
         Bitmap gray;
         Bitmap colorful;
 
-        public Form2()
+        public Form2(Bitmap bmp)
         {
             InitializeComponent();
+            this.bmp = bmp;
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            bmp = new Bitmap(@"D:\Images\4f6ad752090bf5ae323bab7bc37e25e9(2).bmp");
             gray = new Bitmap(bmp.Width, bmp.Height);
 
             for (int x = 0; x < gray.Width; x++)
@@ -77,12 +77,6 @@ namespace PixelsProcedure
                 flowLayoutPanel1.Controls.Add(lb);
             }
         }
-
-        //private void Btn_Click(object sender, EventArgs e)
-        //{
-        //    Button btn = (Button)sender;
-        //    MessageBox.Show(btn.Text);
-        //}
 
         private void button1_Click(object sender, EventArgs e)
         {
