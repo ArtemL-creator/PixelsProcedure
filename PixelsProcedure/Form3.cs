@@ -115,22 +115,29 @@ namespace PixelsProcedure
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if ((int)numericUpDown1.Value > 0 && rectangle.Width > 0 && rectangle.Height > 0) 
+            if ((int)numericUpDown1.Value > 0 && rectangle.Width > 0 && rectangle.Height > 0)
             {
-                //EnlargedImage enlargedImage = new EnlargedImage();
-                //enlargedImage.ShowDialog();
-                //Позже
                 int L = (int)numericUpDown1.Value;
 
-                enlargetBmp = new Bitmap(rectangle.Width, rectangle.Height);
+                enlargetBmp = new Bitmap(rectangle.Width * L, rectangle.Height * L);
 
-                for (int x = 0; x < rectangle.Width; x++)
+                for (int x = rectangle.X; x < rectangle.X + rectangle.Width; x++)
                 {
-                    for (int y = 0; y < rectangle.Height; y++)
+                    for (int y = rectangle.Y; y < rectangle.Y + rectangle.Height; y++)
                     {
-                        Color c = bmp.GetPixel(rectangle.X + x, rectangle.Y + y);
+                        Color c = bmp.GetPixel(x, y);
 
-                        enlargetBmp.SetPixel(x, y, c);
+                        enlargetBmp.SetPixel((x - rectangle.X) * L, (y - rectangle.Y) * L, c);
+                    }
+                }
+
+                for (int X = 0; X < enlargetBmp.Width; X++)
+                {
+                    for (int Y = 0; Y < enlargetBmp.Height; Y++)
+                    {
+                        Color c = bmp.GetPixel((int)(rectangle.X + (double)X / L), (int)(rectangle.Y + (double)Y / L));
+
+                        enlargetBmp.SetPixel(X, Y, c);
                     }
                 }
 

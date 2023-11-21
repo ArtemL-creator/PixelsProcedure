@@ -7,7 +7,7 @@ namespace PixelsProcedure
 {
     public partial class Form1 : Form
     {
-        Bitmap bmp;
+        Bitmap bmp = new Bitmap(@"D:\Images\4f6ad752090bf5ae323bab7bc37e25e9(2).bmp");
         Bitmap gray;
         int[] pixels = new int[256];
         int[] funcPix = new int[256];
@@ -72,7 +72,6 @@ namespace PixelsProcedure
         {
             chart1.Series[0].Points.Clear();
             chart2.Series[0].Points.Clear();
-            bmp = new Bitmap(@"D:\Images\4f6ad752090bf5ae323bab7bc37e25e9(2).bmp");
             pictureBox1.Image = bmp;
         }
 
@@ -413,6 +412,27 @@ namespace PixelsProcedure
             pictureBox1.Image = gray;
             Graph(pixels);
             GraphFunc(funcPix);
+        }
+
+        private void button0_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            ofd.Filter = "Image Files(*.BMP)|*.BMP";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Bitmap newBmp = new Bitmap(ofd.FileName);
+                    bmp = newBmp;
+                }
+                catch
+                {
+                    MessageBox.Show("Картинка не открывается", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw;
+                }
+            }
         }
     }
 }
