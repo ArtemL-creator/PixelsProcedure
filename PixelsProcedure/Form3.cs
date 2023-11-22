@@ -62,14 +62,10 @@ namespace PixelsProcedure
         {
             if (isMouseDown)
             {
-                //Pen pen = new Pen(Color.Red, 2);
                 int x = Math.Min(startPoint.X, endPoint.X);
                 int y = Math.Min(startPoint.Y, endPoint.Y);
                 int width = Math.Abs(startPoint.X - endPoint.X);
                 int height = Math.Abs(startPoint.Y - endPoint.Y);
-
-                //e.Graphics.DrawRectangle(pen, x, y, width, height);
-                //pen.Dispose();
 
                 // Рисуем полупрозрачный прямоугольник
                 using (Brush brush = new SolidBrush(Color.FromArgb(128, Color.Red)))
@@ -131,16 +127,65 @@ namespace PixelsProcedure
                     }
                 }
 
-                for (int X = 0; X < enlargetBmp.Width; X++)
+                if (checkBox1.Checked)
                 {
-                    for (int Y = 0; Y < enlargetBmp.Height; Y++)
+                    for (int X = 0; X < enlargetBmp.Width; X++)
                     {
-                        Color c = bmp.GetPixel((int)(rectangle.X + (double)X / L), (int)(rectangle.Y + (double)Y / L));
+                        for (int Y = 0; Y < enlargetBmp.Height; Y++)
+                        {
+                            Color eC = enlargetBmp.GetPixel(X, Y);
+                            if (eC.A == 0)
+                            {
+                                double x = rectangle.X + (double)X / L;
+                                double y = rectangle.Y + (double)Y / L;
 
-                        enlargetBmp.SetPixel(X, Y, c);
+                                double u = x - Math.Floor(x);
+                                double v = y - Math.Floor(y);
+
+                                Color A = bmp.GetPixel((int)Math.Floor(x), (int)Math.Floor(y));
+                                Color B = bmp.GetPixel((int)Math.Ceiling(x), (int)Math.Floor(y));
+                                Color C = bmp.GetPixel((int)Math.Ceiling(x), (int)Math.Ceiling(y));
+                                Color D = bmp.GetPixel((int)Math.Floor(x), (int)Math.Ceiling(y));
+
+                                Color M = Color.FromArgb(
+                                    (int)((1-u)*A.R+u*B.R),
+                                    (int)((1-u)*A.G+u*B.G),
+                                    (int)((1-u)*A.B+u*B.B)
+                                    );
+                                
+                                Color N = Color.FromArgb(
+                                    (int)((1-u)*D.R+u*C.R),
+                                    (int)((1-u)*D.G+u*C.G),
+                                    (int)((1-u)*D.B+u*C.B)
+                                    );
+
+                                Color P = Color.FromArgb(
+                                    (int)((1 - v) * M.R + v * N.R),
+                                    (int)((1 - v) * M.G + v * N.G),
+                                    (int)((1 - v) * M.B + v * N.B)
+                                    );
+
+                                enlargetBmp.SetPixel(X, Y, P);
+                            }
+                        }
                     }
                 }
+                else
+                {
+                    for (int X = 0; X < enlargetBmp.Width; X++)
+                    {
+                        for (int Y = 0; Y < enlargetBmp.Height; Y++)
+                        {
+                            Color eC = enlargetBmp.GetPixel(X, Y);
+                            if (eC.A == 0)
+                            {
+                                Color c = bmp.GetPixel((int)(rectangle.X + (double)X / L), (int)(rectangle.Y + (double)Y / L));
 
+                                enlargetBmp.SetPixel(X, Y, c);
+                            }
+                        }
+                    }
+                }
                 EnlargedImage enlargedImage = new EnlargedImage(enlargetBmp);
                 enlargedImage.ShowDialog();
             }
