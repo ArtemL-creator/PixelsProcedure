@@ -1,6 +1,6 @@
 ﻿namespace PixelsProcedure
 {
-    partial class EnlargedImage
+    partial class PictureWindow
     {
         /// <summary>
         /// Required designer variable.

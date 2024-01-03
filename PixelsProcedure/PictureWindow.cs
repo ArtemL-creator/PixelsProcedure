@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace PixelsProcedure
 {
-    public partial class EnlargedImage : Form
+    public partial class PictureWindow : Form
     {
         private Bitmap bmp;
 
-        public EnlargedImage(Bitmap bmp)
+        public PictureWindow(Bitmap bmp)
         {
             InitializeComponent();
             this.bmp = bmp;

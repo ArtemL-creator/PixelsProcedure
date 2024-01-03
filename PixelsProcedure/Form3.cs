@@ -14,6 +14,7 @@ namespace PixelsProcedure
     {
         Bitmap bmp = new Bitmap(@"D:\Images\4f6ad752090bf5ae323bab7bc37e25e9(2).bmp");
         Bitmap enlargetBmp;
+        Bitmap rotateBmp;
         Rectangle rectangle = new Rectangle();
 
         private bool isMouseDown = false;
@@ -56,6 +57,9 @@ namespace PixelsProcedure
 
             Rectangle selectedRectangle = new Rectangle(x, y, width, height);
             rectangle = selectedRectangle;
+
+            numericUpDown3.Value = (rectangle.X + rectangle.X + rectangle.Width) / 2;
+            numericUpDown4.Value = (rectangle.Y + rectangle.Y + rectangle.Height) / 2;
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -148,15 +152,15 @@ namespace PixelsProcedure
                                 Color D = bmp.GetPixel((int)Math.Floor(x), (int)Math.Ceiling(y));
 
                                 Color M = Color.FromArgb(
-                                    (int)((1-u)*A.R+u*B.R),
-                                    (int)((1-u)*A.G+u*B.G),
-                                    (int)((1-u)*A.B+u*B.B)
+                                    (int)((1 - u) * A.R + u * B.R),
+                                    (int)((1 - u) * A.G + u * B.G),
+                                    (int)((1 - u) * A.B + u * B.B)
                                     );
-                                
+
                                 Color N = Color.FromArgb(
-                                    (int)((1-u)*D.R+u*C.R),
-                                    (int)((1-u)*D.G+u*C.G),
-                                    (int)((1-u)*D.B+u*C.B)
+                                    (int)((1 - u) * D.R + u * C.R),
+                                    (int)((1 - u) * D.G + u * C.G),
+                                    (int)((1 - u) * D.B + u * C.B)
                                     );
 
                                 Color P = Color.FromArgb(
@@ -186,8 +190,54 @@ namespace PixelsProcedure
                         }
                     }
                 }
-                EnlargedImage enlargedImage = new EnlargedImage(enlargetBmp);
+                PictureWindow enlargedImage = new PictureWindow(enlargetBmp);
                 enlargedImage.ShowDialog();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (rectangle.Width > 0 && rectangle.Height > 0)
+            {
+                int Ax = rectangle.X;
+                int Ay = rectangle.Y;
+                int Bx = rectangle.X + rectangle.Width;
+                int By = rectangle.Y + rectangle.Height;
+                int Cx = (int)numericUpDown3.Value;
+                int Cy = (int)numericUpDown4.Value;
+                int angle = (int)numericUpDown2.Value;
+                int hypotenuse = (int)Math.Ceiling(Math.Sqrt(Math.Pow(rectangle.Width, 2) + Math.Pow(rectangle.Height, 2)));
+                int center = hypotenuse / 2;
+
+                rotateBmp = new Bitmap(hypotenuse, hypotenuse);
+
+                for (int x = rectangle.X; x < rectangle.X + rectangle.Width; x++)
+                {
+                    for (int y = rectangle.Y; y < rectangle.Y + rectangle.Height; y++)
+                    {
+                        int Qx = (int)(center + (x - Cx) * Math.Cos(Math.PI * angle / 180) - (y - Cy) * Math.Sin(Math.PI * angle / 180));
+                        int Qy = (int)(center + (x - Cx) * Math.Sin(Math.PI * angle / 180) + (y - Cy) * Math.Cos(Math.PI * angle / 180));
+
+                        rotateBmp.SetPixel(Qx, Qy, bmp.GetPixel(x, y));
+                    }
+                }
+
+                for (int X = 0; X < rotateBmp.Width; X++)
+                {
+                    for (int Y = 0; Y < rotateBmp.Height; Y++)
+                    {
+                        //int x = X-center+Cx*Math.Cos(angle)+()
+                        //if (0 == 0)
+                        //{
+                        //    Color c = bmp.GetPixel((int)(rectangle.X + (double)X / L), (int)(rectangle.Y + (double)Y / L));
+
+                        //    enlargetBmp.SetPixel(X, Y, c);
+                        //}
+                    }
+                }
+
+                PictureWindow rotateImage = new PictureWindow(rotateBmp);
+                rotateImage.ShowDialog();
             }
         }
     }

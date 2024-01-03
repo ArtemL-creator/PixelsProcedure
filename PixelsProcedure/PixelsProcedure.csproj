@@ -47,11 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnlargedImage.cs">
+    <Compile Include="PictureWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EnlargedImage.Designer.cs">
-      <DependentUpon>EnlargedImage.cs</DependentUpon>
+    <Compile Include="PictureWindow.Designer.cs">
+      <DependentUpon>PictureWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -79,8 +79,8 @@
     <Compile Include="StartForm.Designer.cs">
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="EnlargedImage.resx">
-      <DependentUpon>EnlargedImage.cs</DependentUpon>
+    <EmbeddedResource Include="PictureWindow.resx">
+      <DependentUpon>PictureWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
