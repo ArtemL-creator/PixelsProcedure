@@ -199,13 +199,10 @@ namespace PixelsProcedure
         {
             if (rectangle.Width > 0 && rectangle.Height > 0)
             {
-                int Ax = rectangle.X;
-                int Ay = rectangle.Y;
-                int Bx = rectangle.X + rectangle.Width;
-                int By = rectangle.Y + rectangle.Height;
                 int Cx = (int)numericUpDown3.Value;
                 int Cy = (int)numericUpDown4.Value;
                 int angle = (int)numericUpDown2.Value;
+                double angleRad = (double)(Math.PI * angle) / 180;
                 int hypotenuse = (int)Math.Ceiling(Math.Sqrt(Math.Pow(rectangle.Width, 2) + Math.Pow(rectangle.Height, 2)));
                 int center = hypotenuse / 2;
 
@@ -215,10 +212,10 @@ namespace PixelsProcedure
                 {
                     for (int y = rectangle.Y; y < rectangle.Y + rectangle.Height; y++)
                     {
-                        int Qx = (int)(center + (x - Cx) * Math.Cos(Math.PI * angle / 180) - (y - Cy) * Math.Sin(Math.PI * angle / 180));
-                        int Qy = (int)(center + (x - Cx) * Math.Sin(Math.PI * angle / 180) + (y - Cy) * Math.Cos(Math.PI * angle / 180));
+                        int X = (int)(center + (x - Cx) * Math.Cos(angleRad) - (y - Cy) * Math.Sin(angleRad));
+                        int Y = (int)(center + (x - Cx) * Math.Sin(angleRad) + (y - Cy) * Math.Cos(angleRad));
 
-                        rotateBmp.SetPixel(Qx, Qy, bmp.GetPixel(x, y));
+                        rotateBmp.SetPixel(X, Y, bmp.GetPixel(x, y));
                     }
                 }
 
@@ -226,13 +223,13 @@ namespace PixelsProcedure
                 {
                     for (int Y = 0; Y < rotateBmp.Height; Y++)
                     {
-                        //int x = X-center+Cx*Math.Cos(angle)+()
-                        //if (0 == 0)
-                        //{
-                        //    Color c = bmp.GetPixel((int)(rectangle.X + (double)X / L), (int)(rectangle.Y + (double)Y / L));
-
-                        //    enlargetBmp.SetPixel(X, Y, c);
-                        //}
+                        int x = (int)((X - center) * Math.Cos(angleRad) + (Y - center) * Math.Sin(angleRad) + Cx);
+                        int y = (int)(-(X - center) * Math.Sin(angleRad) + (Y - center) * Math.Cos(angleRad) + Cy);
+                        if (x >= rectangle.X && y >= rectangle.Y && (x <= (rectangle.X + rectangle.Width)) && (y <= (rectangle.Y + rectangle.Height)))
+                        {
+                            Color c = bmp.GetPixel(x, y);
+                            rotateBmp.SetPixel(X, Y, c);
+                        }
                     }
                 }
 
