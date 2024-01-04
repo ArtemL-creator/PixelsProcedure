@@ -28,5 +28,11 @@ namespace PixelsProcedure
             Form3 form3 = new Form3();
             form3.ShowDialog();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form4 form4 = new Form4();
+            form4.ShowDialog();
+        }
     }
 }
