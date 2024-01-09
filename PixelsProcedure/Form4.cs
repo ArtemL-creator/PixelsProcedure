@@ -183,7 +183,7 @@ namespace PixelsProcedure
                 for (int y = 0; y < gray.Height; y++)
                 {
                     Color c = gray.GetPixel(x, y);
-                    byte g = (byte)(0.3f * c.R + 0.59f * c.G + 0.11f * c.B);
+                    byte g = c.R;
                     if (g <= t) g = 0;
                     else g = 255;
 
