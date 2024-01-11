@@ -118,7 +118,7 @@ namespace PixelsProcedure
             extension();
         }
 
-        private void conversion(double[,] h)
+        private void conversion(double[,] h, bool isEmbossingOperator)
         {
             Bitmap newBmp = new Bitmap(bmp.Width - 2, bmp.Height - 2);
 
@@ -154,6 +154,12 @@ namespace PixelsProcedure
                     byte g_22 = c_22.R;
 
                     byte g = (byte)(g_00 * h[0, 0] + g_10 * h[1, 0] + g_20 * h[2, 0] + g_01 * h[0, 1] + g_11 * h[1, 1] + g_21 * h[2, 1] + g_02 * h[0, 2] + g_12 * h[1, 2] + g_22 * h[2, 2]);
+
+                    if (isEmbossingOperator)
+                    {
+                        g += 128;
+                    }
+
                     if (g < 0) { g = 0; }
                     else if (g > 255) { g = 255; }
 
@@ -209,7 +215,7 @@ namespace PixelsProcedure
                     int s = 0;
                     for (int i = 0; i < kernelsResponses.Length; i++)
                     {
-                            s += (int)Math.Pow(kernelsResponses[i], 2);
+                        s += (int)Math.Pow(kernelsResponses[i], 2);
                     }
 
                     byte g = (byte)(Math.Sqrt(s));
@@ -251,134 +257,80 @@ namespace PixelsProcedure
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (!isGrayScale)
-            {
-                grayScale();
-            }
-            else
-            {
-                extension();
-            }
+            if (!isGrayScale) { grayScale(); }
+            else { extension(); }
 
-            double[,] h = { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } };
             if (radioButton1.Checked)
             {
-                h[0, 0] = (double)1 / 9;
-                h[1, 0] = (double)1 / 9;
-                h[2, 0] = (double)1 / 9;
+                double[,] h = {
+                    { 1.0 / 9, 1.0 / 9, 1.0 / 9 },
+                    { 1.0 / 9, 1.0 / 9, 1.0 / 9 },
+                    { 1.0 / 9, 1.0 / 9, 1.0 / 9 } };
 
-                h[0, 1] = (double)1 / 9;
-                h[1, 1] = (double)1 / 9;
-                h[2, 1] = (double)1 / 9;
-
-                h[0, 2] = (double)1 / 9;
-                h[1, 2] = (double)1 / 9;
-                h[2, 2] = (double)1 / 9;
+                conversion(h, false);
             }
             else if (radioButton2.Checked)
             {
-                h[0, 0] = (double)1 / 10;
-                h[1, 0] = (double)1 / 10;
-                h[2, 0] = (double)1 / 10;
+                double[,] h = {
+                    { 1.0 / 10, 1.0 / 10, 1.0 / 10 },
+                    { 1.0 / 10, 1.0 / 5, 1.0 / 10 },
+                    { 1.0 / 10, 1.0 / 10, 1.0 / 10 } };
 
-                h[0, 1] = (double)1 / 10;
-                h[1, 1] = (double)1 / 5;
-                h[2, 1] = (double)1 / 10;
-
-                h[0, 2] = (double)1 / 10;
-                h[1, 2] = (double)1 / 10;
-                h[2, 2] = (double)1 / 10;
+                conversion(h, false);
             }
             else if (radioButton3.Checked)
             {
-                h[0, 0] = (double)1 / 16;
-                h[1, 0] = (double)1 / 8;
-                h[2, 0] = (double)1 / 16;
+                double[,] h = {
+                    { 1.0 / 16, 1.0 / 8, 1.0 / 16 },
+                    { 1.0 / 8, 1.0 / 4, 1.0 / 8 },
+                    { 1.0 / 16, 1.0 / 8, 1.0 / 16 } };
 
-                h[0, 1] = (double)1 / 8;
-                h[1, 1] = (double)1 / 4;
-                h[2, 1] = (double)1 / 8;
-
-                h[0, 2] = (double)1 / 16;
-                h[1, 2] = (double)1 / 8;
-                h[2, 2] = (double)1 / 16;
+                conversion(h, false);
             }
 
-            conversion(h);
-           
             pictureBox1.Image = bmp;
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (!isGrayScale)
-            {
-                grayScale();
-            }
-            else
-            {
-                extension();
-            }
+            if (!isGrayScale) { grayScale(); }
+            else { extension(); }
 
-            double[,] h = { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } };
             if (radioButton4.Checked)
             {
-                h[0, 0] = -1;
-                h[1, 0] = -1;
-                h[2, 0] = -1;
+                double[,] h = {
+                    { -1, -1, -1 },
+                    { -1, 9, -1 },
+                    { -1, -1, -1 } };
 
-                h[0, 1] = -1;
-                h[1, 1] = 9;
-                h[2, 1] = -1;
-
-                h[0, 2] = -1;
-                h[1, 2] = -1;
-                h[2, 2] = -1;
+                conversion(h, false);
             }
             else if (radioButton5.Checked)
             {
-                h[0, 0] = 0;
-                h[1, 0] = -1;
-                h[2, 0] = 0;
+                double[,] h = {
+                    { 0, -1, 0 },
+                    { -1, 5, -1 },
+                    { 0, -1, 0 } };
 
-                h[0, 1] = -1;
-                h[1, 1] = 5;
-                h[2, 1] = -1;
-
-                h[0, 2] = 0;
-                h[1, 2] = -1;
-                h[2, 2] = 0;
+                conversion(h, false);
             }
             else if (radioButton6.Checked)
             {
-                h[0, 0] = 1;
-                h[1, 0] = -2;
-                h[2, 0] = 1;
+                double[,] h = {
+                    { -1, -2, 1 },
+                    { -2, 5, -2 },
+                    { 1, -2, 1 } };
 
-                h[0, 1] = -2;
-                h[1, 1] = 5;
-                h[2, 1] = -2;
-
-                h[0, 2] = 1;
-                h[1, 2] = -2;
-                h[2, 2] = 1;
+                conversion(h, false);
             }
 
-            conversion(h);
-           
             pictureBox1.Image = bmp;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (!isGrayScale)
-            {
-                grayScale();
-            }
-            else
-            {
-                extension();
-            }
+            if (!isGrayScale) { grayScale(); }
+            else { extension(); }
 
             Bitmap newBmp = new Bitmap(bmp.Width - 2, bmp.Height - 2);
 
@@ -401,7 +353,7 @@ namespace PixelsProcedure
                     Color c_12 = bmp.GetPixel(x + 1, y);
                     Color c_22 = bmp.GetPixel(x + 1, y + 1);
 
-                    byte[] gArr = new byte[9] { c_00.R, c_10.R, c_20.R, c_01.R, c_11.R, c_21.R, c_02.R, c_12.R, c_22.R};
+                    byte[] gArr = new byte[9] { c_00.R, c_10.R, c_20.R, c_01.R, c_11.R, c_21.R, c_02.R, c_12.R, c_22.R };
                     Array.Sort(gArr);
 
                     byte g = gArr[4];
@@ -415,20 +367,20 @@ namespace PixelsProcedure
 
         private void button6_Click(object sender, EventArgs e)
         {
-            if (!isGrayScale)
-            {
-                grayScale();
-            }
-            else
-            {
-                extension();
-            }
+            if (!isGrayScale) { grayScale(); }
+            else { extension(); }
 
-            
             if (radioButton7.Checked)
             {
-                int[,] h1 = { { -1, 0, 1 }, { -2, 0, 2 }, { -1, 0, 1 } };
-                int[,] h2 = { { 1, 2, 1 }, { 0, 0, 0 }, { -1, -2, -1 } };
+                int[,] h1 = { 
+                    { -1, 0, 1 }, 
+                    { -2, 0, 2 },
+                    { -1, 0, 1 } };
+
+                int[,] h2 = { 
+                    { 1, 2, 1 }, 
+                    { 0, 0, 0 }, 
+                    { -1, -2, -1 } };
 
                 List<int[,]> h = new List<int[,]>
                 {
@@ -462,6 +414,33 @@ namespace PixelsProcedure
                 };
 
                 calculationOfKernelsResponses(h);
+            }
+
+            pictureBox1.Image = bmp;
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (!isGrayScale) { grayScale(); }
+            else { extension(); }
+
+            if (radioButton8.Checked)
+            {
+                double[,] h = {
+                    { 0, 1, 0 },
+                    { -1, 0, 1 },
+                    { 0, -1, 0 } };
+
+                conversion(h, true);
+            }
+            else if (radioButton10.Checked)
+            {
+                double[,] h = {
+                    { 0, -1, 0 },
+                    { 1, 0, -1 },
+                    { 0, 1, 0 } };
+
+                conversion(h, true);
             }
 
             pictureBox1.Image = bmp;
