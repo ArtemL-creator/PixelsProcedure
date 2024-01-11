@@ -12,7 +12,7 @@ namespace PixelsProcedure
 {
     public partial class Form4 : Form
     {
-        Bitmap bmp = new Bitmap(@"D:\Images\Untitled.bmp");
+        Bitmap bmp = new Bitmap(@"\Images\Untitled.bmp");
         Bitmap gray;
         Bitmap rotateBmp;
         Bitmap rotateGray;
@@ -85,19 +85,19 @@ namespace PixelsProcedure
                 }
             }
 
-            for (int X = 0; X < rotateGray.Width; X++)
-            {
-                for (int Y = 0; Y < rotateGray.Height; Y++)
-                {
-                    int x = (int)((X - Cx) * Math.Cos(angleRad) + (Y - Cy) * Math.Sin(angleRad) + Cx);
-                    int y = (int)(-(X - Cx) * Math.Sin(angleRad) + (Y - Cy) * Math.Cos(angleRad) + Cy);
-                    if (x >= 0 && y >= 0 && (x < (gray.Width)) && (y < (gray.Height)))
-                    {
-                        Color c = gray.GetPixel(x, y);
-                        rotateGray.SetPixel(X, Y, c);
-                    }
-                }
-            }
+            //for (int X = 0; X < rotateGray.Width; X++)
+            //{
+            //    for (int Y = 0; Y < rotateGray.Height; Y++)
+            //    {
+            //        int x = (int)((X - Cx) * Math.Cos(angleRad) + (Y - Cy) * Math.Sin(angleRad) + Cx);
+            //        int y = (int)(-(X - Cx) * Math.Sin(angleRad) + (Y - Cy) * Math.Cos(angleRad) + Cy);
+            //        if (x >= 0 && y >= 0 && (x < (gray.Width)) && (y < (gray.Height)))
+            //        {
+            //            Color c = gray.GetPixel(x, y);
+            //            rotateGray.SetPixel(X, Y, c);
+            //        }
+            //    }
+            //}
 
             int[] h = new int[rotateGray.Height];
             for (int y = 0; y < rotateGray.Height; y++)
@@ -295,6 +295,11 @@ namespace PixelsProcedure
         private void button3_Click(object sender, EventArgs e)
         {
             grayScale();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

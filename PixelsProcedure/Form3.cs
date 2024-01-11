@@ -12,7 +12,7 @@ namespace PixelsProcedure
 {
     public partial class Form3 : Form
     {
-        Bitmap bmp = new Bitmap(@"D:\Images\4f6ad752090bf5ae323bab7bc37e25e9(2).bmp");
+        Bitmap bmp = new Bitmap(@"\Images\4f6ad752090bf5ae323bab7bc37e25e9(2).bmp");
         Bitmap enlargetBmp;
         Bitmap rotateBmp;
         Rectangle rectangle = new Rectangle();
@@ -87,7 +87,7 @@ namespace PixelsProcedure
 
         private void button1_Click(object sender, EventArgs e)
         {
-            numericUpDown1.Value = 0;
+            numericUpDown1.Value = 1;
             OpenFileDialog ofd = new OpenFileDialog();
 
             ofd.Filter = "Image Files(*.BMP)|*.BMP";
@@ -109,13 +109,13 @@ namespace PixelsProcedure
 
         private void button2_Click(object sender, EventArgs e)
         {
-            numericUpDown1.Value = 0;
+            numericUpDown1.Value = 1;
             pictureBox1.Image = bmp;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if ((int)numericUpDown1.Value > 0 && rectangle.Width > 0 && rectangle.Height > 0)
+            if (rectangle.Width > 0 && rectangle.Height > 0)
             {
                 int L = (int)numericUpDown1.Value;
 
@@ -236,6 +236,11 @@ namespace PixelsProcedure
                 PictureWindow rotateImage = new PictureWindow(rotateBmp);
                 rotateImage.ShowDialog();
             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -20,22 +20,14 @@ namespace PixelsProcedure
             this.bmp = bmp;
         }
 
-        private bool okButton = false;
-
-        public bool OKButtonClicked
-        {
-            get { return okButton; }
-        }
-
-        private void btnOK_Click(object sender, EventArgs e)
-        {
-            okButton = true;
-            this.Close();
-        }
-
         private void enlargedImage_Load(object sender, EventArgs e)
         {
             pictureBox1.Image = bmp;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

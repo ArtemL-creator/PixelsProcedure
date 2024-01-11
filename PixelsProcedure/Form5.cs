@@ -13,7 +13,7 @@ namespace PixelsProcedure
 {
     public partial class Form5 : Form
     {
-        Bitmap bmp = new Bitmap(@"D:\Images\4f6ad752090bf5ae323bab7bc37e25e9(1).bmp");
+        Bitmap bmp = new Bitmap(@"\Images\4f6ad752090bf5ae323bab7bc37e25e9(1).bmp");
         bool isGrayScale = false;
 
         public Form5()
@@ -444,6 +444,11 @@ namespace PixelsProcedure
             }
 
             pictureBox1.Image = bmp;
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

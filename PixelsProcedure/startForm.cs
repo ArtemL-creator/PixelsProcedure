@@ -40,5 +40,10 @@ namespace PixelsProcedure
             Form5 form5 = new Form5();
             form5.ShowDialog();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

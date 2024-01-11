@@ -63,11 +63,9 @@ namespace PixelsProcedure
                 lb.ScrollAlwaysVisible = true;
                 lb.Size = new Size(80, 20);
                 lb.SelectedItem = colors[new Random().Next(0, colors.Length)];
-                //colors[new Random().Next(0, colors.Length)]
 
                 if (i == p - 1) { nud.Value = 255; }
                 else { nud.Value = k; }
-                //btn.Click += Btn_Click;
                 k += 256 / p;
 
                 nudList.Add(nud);
@@ -82,21 +80,6 @@ namespace PixelsProcedure
         {
             int p = (int)numericUpDown1.Value;
             loadListOfIntervals(p);
-            //TextBox newTextBox = new TextBox();
-            //TextBox lastOldTextBox = TextBoxes.LastOrDefault();
-
-            //if (lastOldTextBox == null)
-            //{
-            //    newTextBox.Location = new Point(30, 50);
-            //    newTextBox.Text = "Hello World!";
-            //}
-            //else
-            //{
-            //    newTextBox.Location = new Point(lastOldTextBox.Location.X, lastOldTextBox.Location.Y + 30);
-            //    newTextBox.Text = $"Hello World! ({TextBoxes.Count})";
-            //}
-            //TextBoxes.Add(newTextBox);
-            //this.Controls.Add(newTextBox);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -120,7 +103,6 @@ namespace PixelsProcedure
                     for (; i1 <= i2; i1++)
                     {
                         pixelsColors[i1] = lbList[i].SelectedItem.ToString();
-                        //Console.WriteLine(i + ": " + nudList[i].Value + " -- " + lbList[i].SelectedItem.ToString());
                     }
                 }
 
@@ -137,7 +119,6 @@ namespace PixelsProcedure
                         {
                             if (g == (byte)k)
                             {
-                                //g = (byte)pixelsColors[k];
                                 c = Color.FromName(pixelsColors[k]);
                                 break;
                             }
@@ -146,17 +127,12 @@ namespace PixelsProcedure
                     }
                 }
                 pictureBox1.Image = colorful;
-                //for (int i = 0; i < pixelsColors.Length; i++)
-                //{
-                //    Console.WriteLine(i + ": " + pixelsColors[i]);
-                //}
-
-                //for (int i = 0; i < lbList.Count; i++)
-                //{
-                //    Console.WriteLine(i + ": " + nudList[i].Value + " -- " + lbList[i].SelectedItem.ToString());
-                //}
-                //Console.WriteLine();
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

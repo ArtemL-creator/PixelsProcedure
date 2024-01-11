@@ -7,7 +7,7 @@ namespace PixelsProcedure
 {
     public partial class Form1 : Form
     {
-        Bitmap bmp = new Bitmap(@"D:\Images\4f6ad752090bf5ae323bab7bc37e25e9(2).bmp");
+        Bitmap bmp = new Bitmap(@"\Images\4f6ad752090bf5ae323bab7bc37e25e9(2).bmp");
         Bitmap gray;
         int[] pixels = new int[256];
         int[] funcPix = new int[256];
@@ -15,11 +15,6 @@ namespace PixelsProcedure
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -32,7 +27,6 @@ namespace PixelsProcedure
             chart1.Series[0].Points.Clear();
             for (int i = 0; i < pixels.Length; i++)
             {
-                //Console.WriteLine(i + ": " + pixels[i]);
                 chart1.Series[0].Points.AddXY(i, pixels[i]);
             }
         }
@@ -42,7 +36,6 @@ namespace PixelsProcedure
             chart2.Series[0].Points.Clear();
             for (int i = 0; i < funcPix.Length; i++)
             {
-                //Console.WriteLine(i + ": " + funcPix[i]);
                 chart2.Series[0].Points.AddXY(i, funcPix[i]);
             }
         }
@@ -381,11 +374,6 @@ namespace PixelsProcedure
             double a = (double)-255 / 16256;
             double b = (double)65025 / 16256;
 
-            //Console.WriteLine("--------------------------------------");
-            //Console.WriteLine("a" + ": " + a);
-            //Console.WriteLine("b" + ": " + b);
-            //Console.WriteLine("--------------------------------------");
-
             for (int x = 0; x < gray.Width; x++)
             {
                 for (int y = 0; y < gray.Height; y++)
@@ -428,6 +416,11 @@ namespace PixelsProcedure
                     throw;
                 }
             }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
