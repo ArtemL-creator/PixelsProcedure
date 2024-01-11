@@ -291,11 +291,6 @@ namespace PixelsProcedure
             GraphFunc(funcPix);
         }
 
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button9_Click(object sender, EventArgs e)
         {
             chart1.Series[0].Points.Clear();
