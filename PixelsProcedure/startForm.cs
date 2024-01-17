@@ -45,5 +45,11 @@ namespace PixelsProcedure
         {
             Close();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Form6 form6 = new Form6();
+            form6.ShowDialog();
+        }
     }
 }
