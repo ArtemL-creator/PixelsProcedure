@@ -275,7 +275,7 @@ namespace PixelsProcedure
                 {
                     MyPoint3D maxVal = maxVals[i];
 
-                    for (int x = 0; i < bmpRes.Width; x++)
+                    for (int x = 0; x < bmpRes.Width; x++)
                     {
                         for(int y = 0; y < bmpRes.Height; y++)
                         {
