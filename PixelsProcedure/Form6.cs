@@ -180,7 +180,8 @@ namespace PixelsProcedure
                 bmpRes = new Bitmap(bmp.Width, bmp.Height);
 
                 int maxR = (int)Math.Sqrt(Math.Pow(bmp.Width, 2) + Math.Pow(bmp.Height, 2));
-                int[,] H = new int[maxR, 360];
+                int degrees = 360;
+                int[,] H = new int[maxR, degrees];
 
                 for (int x = 0; x < bmp.Width; x++)
                 {
@@ -191,7 +192,7 @@ namespace PixelsProcedure
 
                         if (g.R == 0 && g.G == 0 && g.B == 0)
                         {
-                            for (int fi = 0; fi < 359; fi++)
+                            for (int fi = 0; fi < degrees; fi++)
                             {
                                 double fiRad = (double)(Math.PI * fi) / 180;
                                 int r = (int)(x * Math.Cos(fiRad) + y * Math.Sin(fiRad));
@@ -215,14 +216,14 @@ namespace PixelsProcedure
                     int maxY = maxVals[i].Y;
 
                     double angleRad = (double)(Math.PI * maxY) / 180;
-                    double a = Math.Cos(angleRad);
-                    double b = Math.Sin(angleRad);
+                    double cosAngle = Math.Cos(angleRad);
+                    double sinAngle = Math.Sin(angleRad);
 
                     for (int x = 0; x < bmpRes.Width; x++)
                     {
                         for (int y = 0; y < bmpRes.Height; y++)
                         {
-                            int res = (int)Math.Ceiling(a * x + b * y);
+                            int res = (int)Math.Ceiling(cosAngle * x + sinAngle * y);
                             if (res == maxX) { bmpRes.SetPixel(x, y, Color.Red); }
                         }
                     }
@@ -279,9 +280,9 @@ namespace PixelsProcedure
                     {
                         for(int y = 0; y < bmpRes.Height; y++)
                         {
-                            int rad = (int)Math.Ceiling(Math.Sqrt(Math.Pow(x - maxVal.A, 2)+ Math.Pow(y - maxVal.B, 2)));
+                            int radius = (int)Math.Ceiling(Math.Sqrt(Math.Pow(x - maxVal.A, 2)+ Math.Pow(y - maxVal.B, 2)));
 
-                            if (rad == maxVal.R) { bmpRes.SetPixel(x, y, Color.Red); }
+                            if (radius == maxVal.R) { bmpRes.SetPixel(x, y, Color.Red); }
                         }
                     }
                 }
